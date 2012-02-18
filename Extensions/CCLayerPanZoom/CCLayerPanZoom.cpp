@@ -77,7 +77,7 @@ void CCLayerPanZoom::setRubberEffectRatio(CGFloat rubberEffectRatio)
     // Avoid turning rubber effect On in frame mode.
     if (_mode == kCCLayerPanZoomModeFrame)
     {
-        CCLOGERROR(@"CCLayerPanZoom#setRubberEffectRatio: rubber effect is not supported in frame mode.");
+        CCLOGERROR("CCLayerPanZoom#setRubberEffectRatio: rubber effect is not supported in frame mode.");
         _rubberEffectRatio = 0.0f;
     }
     
