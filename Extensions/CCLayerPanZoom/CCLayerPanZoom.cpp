@@ -60,7 +60,7 @@ void CCLayerPanZoom::setRubberEffectRatio(CGFloat rubberEffectRatio)
     // Avoid turning rubber effect On in frame mode.
     if (_mode == kCCLayerPanZoomModeFrame)
     {
-        CCLOGERROR(@"CCLayerPanZoom#setRubberEffectRatio: rubber effect is not supported in frame mode.");
+        CCLOGERROR("CCLayerPanZoom#setRubberEffectRatio: rubber effect is not supported in frame mode.");
         _rubberEffectRatio = 0.0f;
     }
     
@@ -150,11 +150,11 @@ void CCLayerPanZoom::ccTouchesMoved(cocos2d::CCSet *pTouches, cocos2d::CCEvent *
         CCTouch *touch1 = (CCTouch*)_touches->objectAtIndex(0);
         CCTouch *touch2 = (CCTouch*)_touches->objectAtIndex(1);
 		// Get current and previous positions of the touches
-		CCPoint curPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->locationInView(touch1->view()));
-        CCPoint curPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->locationInView(touch2->view()));
+		CCPoint curPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->locationInView());
+        CCPoint curPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->locationInView());
         
-        CCPoint prevPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->previousLocationInView(touch1->view()));
-        CCPoint prevPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->previousLocationInView(touch2->view()));
+        CCPoint prevPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->previousLocationInView());
+        CCPoint prevPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->previousLocationInView());
         
         
 		// Calculate current and previous positions of the layer relative the anchor point
@@ -199,8 +199,8 @@ void CCLayerPanZoom::ccTouchesMoved(cocos2d::CCSet *pTouches, cocos2d::CCEvent *
 	{	        
         // Get the single touch and it's previous & current position.
         CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);
-        CCPoint curTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->locationInView(touch->view()));
-        CCPoint prevTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->previousLocationInView(touch->view()));
+        CCPoint curTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->locationInView());
+        CCPoint prevTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->previousLocationInView());
         
         // Always scroll in sheet mode.
         if (_mode == kCCLayerPanZoomModeSheet)
@@ -236,7 +236,7 @@ void CCLayerPanZoom::ccTouchesEnded(cocos2d::CCSet *pTouches, cocos2d::CCEvent *
         && (_touches->count() == 1))
     {
         CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);       
-        CCPoint curPos = CCDirector::sharedDirector()->convertToGL(touch->locationInView(touch->view()));
+        CCPoint curPos = CCDirector::sharedDirector()->convertToGL(touch->locationInView());
         //ToDo add delegate
         /*[self.delegate layerPanZoom: self
                      clickedAtPoint: [self convertToNodeSpace: curPos]
@@ -298,7 +298,7 @@ void  CCLayerPanZoom::update(ccTime dt){
         
         // Otherwise - update touch position. Get current position of touch.
         CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);
-        CCPoint curPos = CCDirector::sharedDirector()->convertToGL(touch->locationInView(touch->view()));
+        CCPoint curPos = CCDirector::sharedDirector()->convertToGL(touch->locationInView());
         
         // Scroll if finger in the scroll area near edge.
         if (this->frameEdgeWithPoint(curPos) != kCCLayerPanZoomFrameEdgeNone)
