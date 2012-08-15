@@ -28,6 +28,23 @@
 
 #include "CCLayerPanZoom.h"
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+int round (double x)
+{ 
+	int i = (int) x; 
+	if (x >= 0.0) 
+	{ 
+		return ((x-i) >= 0.5) ? (i + 1) : (i); 
+	}
+	else 
+	{ 
+		return (-x+i >= 0.5) ? (i - 1) : (i); 
+	} 
+} 
+
+#include <limits>
+float INFINITY = std::numeric_limits<float>::infinity();
+#endif  // CC_PLATFORM_WIN32
 
 USING_NS_CC;
 
@@ -60,7 +77,7 @@ void CCLayerPanZoom::setRubberEffectRatio(CGFloat rubberEffectRatio)
     // Avoid turning rubber effect On in frame mode.
     if (_mode == kCCLayerPanZoomModeFrame)
     {
-        CCLOGERROR(@"CCLayerPanZoom#setRubberEffectRatio: rubber effect is not supported in frame mode.");
+        CCLOGERROR("CCLayerPanZoom#setRubberEffectRatio: rubber effect is not supported in frame mode.");
         _rubberEffectRatio = 0.0f;
     }
     
